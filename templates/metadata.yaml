@@ -1,0 +1,18 @@
+local-hostname: ${hostname}
+instance-id: ${hostname}
+network:
+  version: 2
+  ethernets:
+    ens192:
+      %{ if dhcp == "true" }dhcp4: true
+      %{ else }dhcp4: false
+      addresses:
+        - ${private_ip_address}/${private_netmask}
+      gateway4: ${gateway}
+      nameservers:
+        addresses: ${nameservers}
+      %{ endif }
+    ens224:
+      dhcp4: false
+      addresses:
+        - ${public_ip_address}/${public_netmask}
